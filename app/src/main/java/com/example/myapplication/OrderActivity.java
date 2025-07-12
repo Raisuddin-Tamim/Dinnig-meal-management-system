@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class OrderActivity extends AppCompatActivity {
 
-    GridView gridView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +23,6 @@ public class OrderActivity extends AppCompatActivity {
             return insets;
         });
 
-        gridView=findViewById(R.id.gridHall);
+
     }
 }
