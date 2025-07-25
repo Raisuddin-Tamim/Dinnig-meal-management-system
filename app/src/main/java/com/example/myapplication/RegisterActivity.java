@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapplication.databinding.ActivityRegisterBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,30 +25,36 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText edUsername, edEmail, edPassword, edConfirmPassword;
+    EditText edUsername, edEmail, edPassword, edConfirmPassword, stdid;
     Button btn;
     TextView tv;
-    FirebaseAuth auth;
 
+    FirebaseAuth auth;
+    private ActivityRegisterBinding binding;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+
+        binding=ActivityRegisterBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
         auth = FirebaseAuth.getInstance();
-        edUsername = findViewById(R.id.editTextRegUsername);
-        edEmail = findViewById(R.id.editTextRegEmail);
-        edPassword = findViewById(R.id.editTextRegPassword);
-        edConfirmPassword = findViewById(R.id.editTextRegConfirmPassword);
-        btn = findViewById(R.id.buttonReg);
-        tv = findViewById(R.id.textViewExistingUser);
+        edUsername = binding.editTextRegUsername;
+        edEmail = binding.editTextRegEmail;
+        edPassword = binding.editTextRegPassword;
+        edConfirmPassword = binding.editTextRegConfirmPassword;
+        btn = binding.buttonReg;
+        tv = binding.textViewExistingUser;
+        stdid = binding.studentId;
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,22 +63,28 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = edEmail.getText().toString();
                 String password = edPassword.getText().toString();
                 String confirmPass = edConfirmPassword.getText().toString();
+                String studentid = stdid.getText().toString();
 
-                //Database db = new Database(getApplicationContext(), "Dinning_Management", null, 1);
-                if(username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPass.isEmpty())
+                Database db = new Database(getApplicationContext(), "Dinning_Management", null, 1);
+                if(username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPass.isEmpty() || studentid.isEmpty())
                 {
                     Toast.makeText(getApplicationContext(), "Please fill all the fields", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     if(password.compareTo(confirmPass) == 0){
                         if(isValid(password)){
-                            //db.register(username, email, password);
+                           db.register(username, email, password, studentid);
                             auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
                                         Toast.makeText(getApplicationContext(), "signUp Successful", Toast.LENGTH_SHORT).show();
+                                        SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.clear();
+                                        editor.apply();
                                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                                        finish();
                                     }
                                     else{
                                         Toast.makeText(getApplicationContext(), "signUp Failed", Toast.LENGTH_SHORT).show();

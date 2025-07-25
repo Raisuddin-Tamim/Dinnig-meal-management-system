@@ -22,10 +22,10 @@
             android:theme="@style/Theme.MyApplication.NoActionBar" />
 
         <activity
-            android:name=".HomeActivity"
+            android:name=".RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".HomeActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

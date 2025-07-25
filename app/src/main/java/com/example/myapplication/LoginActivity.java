@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.databinding.ActivityLoginBinding;
+import com.example.myapplication.databinding.ActivityRegisterBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -26,17 +28,30 @@ public class LoginActivity extends AppCompatActivity {
     Button btn;
     TextView tv;
     FirebaseAuth auth;
+    private ActivityLoginBinding binding;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        auth = FirebaseAuth.getInstance();
-        edEmail = findViewById(R.id.editTextLoginEmail);
-        edPassword = findViewById(R.id.editTextLoginPassword);
-        btn = findViewById(R.id.buttonLogin);
-        tv = findViewById(R.id.textView3);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        auth =  FirebaseAuth.getInstance();
+        edEmail = binding.editTextLoginEmail;
+        edPassword = binding.editTextLoginPassword;
+        btn = binding.buttonLogin;
+        tv = binding.textView3;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
+        boolean isLoggedIn = sharedPreferences.getBoolean("LoggedIn", false);
+        if(isLoggedIn){
+            startActivity(new Intent(LoginActivity.this, AppDrawerActivity.class));
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Please Login First", Toast.LENGTH_SHORT).show();
+        }
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,14 +77,16 @@ public class LoginActivity extends AppCompatActivity {
                    else{
                        Toast.makeText(getApplicationContext(), "Invalid Username or Password", Toast.LENGTH_SHORT).show();
                    }*/
-                    SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("Email", email);
-                    //with save our with key and value.
-                    editor.apply();
+
                     auth.signInWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
+                            SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putBoolean("LoggedIn", true);
+                            editor.putString("Email", email);
+                            editor.apply();
+
                             Toast.makeText(getApplicationContext(),"Login Successful", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginActivity.this, AppDrawerActivity.class));
                         }
@@ -90,5 +107,9 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
+
+
     }
+
+
 }

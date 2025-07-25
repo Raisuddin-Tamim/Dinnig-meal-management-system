@@ -47,7 +47,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
                 android:paddingTop="10sp"
-
                 android:rotationX="19"
                 android:text="Buy Meal"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -61,13 +60,13 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/buttonMinus"
+                    android:id="@+id/mealMinus"
                     android:layout_width="77dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/minus" />
 
                 <ImageButton
-                    android:id="@+id/buttonPlus"
+                    android:id="@+id/mealPlus"
                     android:layout_width="77dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/plus" />
@@ -81,10 +80,12 @@
                     android:layout_marginVertical="22dp">
 
                     <EditText
-                        android:id="@+id/editTextNumberDecimal"
+                        android:id="@+id/showMealBuy"
+                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:hint="00"
                         android:inputType="numberDecimal" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -96,7 +97,7 @@
                 android:layout_marginTop="8dp"
                 android:rotationX="9"
                 android:rotationY="3"
-                android:text="purchase"
+                android:text="NEXT -->"
                 android:textSize="15sp"/>
 
             <LinearLayout
@@ -112,8 +113,10 @@
                     android:text="Available Token: "
                     android:textColor="@color/white"
                     android:textSize="24sp" />
+
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/availableTokenView"
+                    android:layout_width="81dp"
                     android:layout_height="wrap_content"
                     android:text=">>..."
                     android:textColor="@color/white"
@@ -173,13 +176,13 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/buttonMinus1"
+                    android:id="@+id/tokenMinus"
                     android:layout_width="77dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/minus" />
 
                 <ImageButton
-                    android:id="@+id/buttonPlus1"
+                    android:id="@+id/tokenPlus"
                     android:layout_width="77dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/plus" />
@@ -193,16 +196,18 @@
                     android:layout_marginVertical="22dp">
 
                     <EditText
-                        android:id="@+id/editTextNumberDecimal1"
+                        android:id="@+id/showTokenBuy"
+                        android:gravity="center"
+                        android:hint="00"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:inputType="numberDecimal" />
+                        android:inputType="number" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
             <Button
-                android:id="@+id/buttonPurchase1"
+                android:id="@+id/orderButton"
                 android:layout_width="150dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="8dp"
@@ -226,8 +231,10 @@
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     android:textStyle="bold" />
+
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tokenCostView"
+                    android:layout_width="69dp"
                     android:layout_height="wrap_content"
                     android:text=">>..."
                     android:textColor="@color/white"

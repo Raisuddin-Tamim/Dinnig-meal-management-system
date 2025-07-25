@@ -16,7 +16,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String qry1 = "create table users( username text, email text, password text)";
+        String qry1 = "create table users( username text, email text, password text, studentid text)";
 
         sqLiteDatabase.execSQL(qry1);
     }
@@ -25,11 +25,12 @@ public class Database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-    public void register (String username, String email, String password){
+    public void register (String username, String email, String password, String studentid){
         ContentValues cv= new ContentValues();
         cv.put("username", username);
         cv.put("email", email);
         cv.put("password", password);
+        cv.put("studentid", studentid);
         SQLiteDatabase db = getWritableDatabase();
         db.insert("users",null ,cv);
         db.close();
@@ -46,4 +47,20 @@ public class Database extends SQLiteOpenHelper {
         }
         return result;
     }
+
+    public String ret_si(String email){
+        String str[] = new String[1];
+        str[0]=email;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c= db.rawQuery("select studentid from users where email=?", str);
+        if(c.moveToFirst()){
+            String id = c.getString(0);
+            c.close();
+            return id;
+        }
+        c.close();
+        return null;
+    }
+
+
 }

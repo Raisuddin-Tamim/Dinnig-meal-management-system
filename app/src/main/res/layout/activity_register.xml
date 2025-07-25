@@ -44,7 +44,7 @@
         android:drawableLeft="@drawable/ic_baseline_email_24"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Email"
+        android:hint="e-mail"
         android:inputType="textEmailAddress"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
@@ -56,7 +56,7 @@
         app:layout_constraintHorizontal_bias="0.594"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.86" />
+        app:layout_constraintVertical_bias="0.598" />
 
     <EditText
         android:id="@+id/editTextRegUsername"
@@ -78,7 +78,7 @@
         app:layout_constraintHorizontal_bias="0.594"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.564" />
+        app:layout_constraintVertical_bias="0.789" />
 
     <EditText
         android:id="@+id/editTextRegPassword"
@@ -100,7 +100,29 @@
         app:layout_constraintHorizontal_bias="0.594"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.944" />
+        app:layout_constraintVertical_bias="0.961" />
+
+    <EditText
+        android:id="@+id/studentId"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:background="@drawable/input_bg"
+        android:drawableLeft="@drawable/stdid"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="student id"
+        android:inputType="text"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColorHint="#FFFFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/editTextRegConfirmPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.594"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.708" />
 
     <EditText
         android:id="@+id/editTextRegConfirmPassword"
@@ -122,7 +144,7 @@
         app:layout_constraintHorizontal_bias="0.594"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.809" />
+        app:layout_constraintVertical_bias="0.903" />
 
     <Button
         android:id="@+id/buttonReg"
