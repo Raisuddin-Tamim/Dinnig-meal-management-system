@@ -91,13 +91,13 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/buttonPurchase"
+                android:id="@+id/orderMeal"
                 android:layout_width="150dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="8dp"
                 android:rotationX="9"
                 android:rotationY="3"
-                android:text="NEXT -->"
+                android:text="NEXT →"
                 android:textSize="15sp"/>
 
             <LinearLayout

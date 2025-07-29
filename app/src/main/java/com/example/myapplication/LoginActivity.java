@@ -44,14 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         btn = binding.buttonLogin;
         tv = binding.textView3;
 
-        SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
-        boolean isLoggedIn = sharedPreferences.getBoolean("LoggedIn", false);
-        if(isLoggedIn){
-            startActivity(new Intent(LoginActivity.this, AppDrawerActivity.class));
-        }
-        else{
-            Toast.makeText(getApplicationContext(), "Please Login First", Toast.LENGTH_SHORT).show();
-        }
+
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
