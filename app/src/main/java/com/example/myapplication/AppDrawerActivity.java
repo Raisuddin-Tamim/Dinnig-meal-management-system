@@ -1,12 +1,16 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.ActivityKt;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -14,6 +18,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.myapplication.R;
+
 
 import com.example.myapplication.databinding.ActivityAppDrawerBinding;
 
@@ -46,7 +52,7 @@ public class AppDrawerActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_about, R.id.nav_settings, R.id.nav_share)
                 .setOpenableLayout(drawer)
                 .build();
-        ActivityKt Navigation = null;
+       // ActivityKt Navigation = null;
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_app_drawer);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -57,6 +63,55 @@ public class AppDrawerActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.app_drawer, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.action_profile) {
+            return true;
+        }
+        else if(item.getItemId() == R.id.action_settings){
+            return true;
+        }
+
+        else if(item.getItemId() == R.id.action_logout){
+
+            showDialogBox();
+            return true;
+        }
+
+        else
+            return super.onOptionsItemSelected(item);
+
+
+    }
+
+    private void showDialogBox() {
+        View view = getLayoutInflater().inflate(R.layout.custom_dialog_confirmation, null);
+
+        View dialogNo = view.findViewById(R.id.dialogNo);
+        View dialogYes = view.findViewById(R.id.dialogYes);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(view);
+        final AlertDialog alertDialog = builder.create();
+
+        dialogYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                alertDialog.dismiss();
+            }
+        });
+        dialogNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 
     @Override

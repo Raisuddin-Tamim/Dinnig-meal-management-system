@@ -33,6 +33,7 @@ public class HomeFragment extends Fragment {
        binding.OrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 startActivity(new Intent(getActivity(), OrderActivity.class));
             }
         });
